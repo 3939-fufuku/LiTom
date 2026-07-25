@@ -7,7 +7,6 @@ on:
       - "config/*.keymap"
       - "config/**/*.dtsi"
       - "config/**/*.overlay"
-      - "scripts/prepare_keymap_for_drawing.py"
       - ".github/workflows/draw-keymap.yml"
 
 concurrency:
@@ -31,12 +30,6 @@ jobs:
           ref: b3e65177f7d8e4cc1685beb9dde887ac4634f67b
           path: .keymap-svg-tools
 
-      - name: Prepare modular keymap
-        run: |
-          python3 scripts/prepare_keymap_for_drawing.py \
-            config/LiTom.keymap \
-            "${RUNNER_TEMP}/LiTom.keymap"
-
       - name: Draw keymap SVG
         run: |
           mkdir -p keymap-svg
@@ -44,7 +37,7 @@ jobs:
             config/boards/shields/LiTom/LiTom.dtsi \
             keymap-svg/LiTom.svg \
             --layout default_layout \
-            --keymap "${RUNNER_TEMP}/LiTom.keymap" \
+            --keymap config/LiTom.keymap \
             --key-unit-px 84
 
       - name: Commit updated SVG
