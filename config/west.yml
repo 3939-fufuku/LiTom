@@ -2,16 +2,8 @@ manifest:
   remotes:
     - name: cormoran
       url-base: https://github.com/cormoran
-    - name: zmkfirmware
-      url-base: https://github.com/zmkfirmware
-    - name: mctechnology17
-      url-base: https://github.com/mctechnology17
     - name: badjeff
       url-base: https://github.com/badjeff
-    - name: englmaxi
-      url-base: https://github.com/englmaxi
-    - name: te9no
-      url-base: https://github.com/te9no
     - name: pukuhei
       url-base: https://github.com/pukuhei
   projects:
@@ -37,15 +29,6 @@ manifest:
     - name: zmk-pmw3610-driver
       remote: badjeff
       revision: zmk-0.3
-    - name: zmk-dongle-display
-      remote: te9no
-      revision: main
-    - name: zmk-oled-adapter
-      remote: mctechnology17
-      revision: main
-    - name: zmk-nice-oled
-      remote: mctechnology17
-      revision: main
     - name: zmk-tom-oled
       remote: pukuhei
       revision: main
