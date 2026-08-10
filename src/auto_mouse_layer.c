@@ -20,7 +20,7 @@ static void deactivate_work_handler(struct k_work *work) {
     }
 
     if (layer_owned && zmk_keymap_layer_active(TARGET_LAYER)) {
-        int err = zmk_keymap_layer_deactivate(TARGET_LAYER);
+        int err = zmk_keymap_layer_deactivate(TARGET_LAYER, false);
         if (err < 0) {
             LOG_WRN("Failed to deactivate auto mouse layer %d: %d", TARGET_LAYER, err);
             return;
@@ -38,7 +38,9 @@ static bool is_trackball_motion(const struct input_event *ev) {
            (ev->code == INPUT_REL_X || ev->code == INPUT_REL_Y);
 }
 
-static void auto_mouse_layer_input_listener(struct input_event *ev) {
+static void auto_mouse_layer_input_listener(struct input_event *ev, void *user_data) {
+    ARG_UNUSED(user_data);
+
     if (!is_trackball_motion(ev)) {
         return;
     }
@@ -48,7 +50,7 @@ static void auto_mouse_layer_input_listener(struct input_event *ev) {
     }
 
     if (!zmk_keymap_layer_active(TARGET_LAYER)) {
-        int err = zmk_keymap_layer_activate(TARGET_LAYER);
+        int err = zmk_keymap_layer_activate(TARGET_LAYER, false);
         if (err < 0) {
             LOG_WRN("Failed to activate auto mouse layer %d: %d", TARGET_LAYER, err);
             return;
@@ -60,7 +62,7 @@ static void auto_mouse_layer_input_listener(struct input_event *ev) {
     k_work_reschedule(&deactivate_work, K_MSEC(TIMEOUT_MS));
 }
 
-INPUT_CALLBACK_DEFINE(NULL, auto_mouse_layer_input_listener);
+INPUT_CALLBACK_DEFINE(NULL, auto_mouse_layer_input_listener, NULL);
 
 static int auto_mouse_layer_state_listener(const zmk_event_t *eh) {
     const struct zmk_layer_state_changed *ev = as_zmk_layer_state_changed(eh);

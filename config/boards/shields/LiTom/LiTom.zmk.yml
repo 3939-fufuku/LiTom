@@ -2,6 +2,9 @@ file_format: "1"
 id: LiTom
 name: LiTom
 type: shield
-requires: [seeeduino_xiao_ble]
+requires: [seeed_xiao]
 features:
   - keys
+siblings:
+  - LiTom_L
+  - LiTom_R

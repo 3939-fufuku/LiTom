@@ -19,18 +19,18 @@ static void prefer_usb_endpoint_work_handler(struct k_work *work) {
         return;
     }
 
-    struct zmk_endpoint_instance selected = zmk_endpoints_selected();
+    struct zmk_endpoint_instance selected = zmk_endpoint_get_selected();
     if (selected.transport == ZMK_TRANSPORT_USB) {
         return;
     }
 
     LOG_INF("USB HID ready; selecting USB endpoint");
 
-    if (zmk_endpoints_get_preferred_transport() == ZMK_TRANSPORT_USB) {
-        zmk_endpoints_select_transport(ZMK_TRANSPORT_BLE);
+    if (zmk_endpoint_get_preferred_transport() == ZMK_TRANSPORT_USB) {
+        zmk_endpoint_set_preferred_transport(ZMK_TRANSPORT_BLE);
     }
 
-    zmk_endpoints_select_transport(ZMK_TRANSPORT_USB);
+    zmk_endpoint_set_preferred_transport(ZMK_TRANSPORT_USB);
 }
 
 K_WORK_DELAYABLE_DEFINE(prefer_usb_endpoint_work, prefer_usb_endpoint_work_handler);
@@ -137,13 +137,15 @@ ZMK_LISTENER(usb_keycode_report_fallback_listener, usb_keycode_report_fallback_l
 ZMK_SUBSCRIPTION(usb_keycode_report_fallback_listener, zmk_keycode_state_changed);
 
 #if IS_ENABLED(CONFIG_ZMK_POINTING)
-static void usb_mouse_report_fallback_listener(struct input_event *ev) {
-    if (ev->sync && zmk_endpoints_selected().transport != ZMK_TRANSPORT_USB) {
+static void usb_mouse_report_fallback_listener(struct input_event *ev, void *user_data) {
+    ARG_UNUSED(user_data);
+
+    if (ev->sync && zmk_endpoint_get_selected().transport != ZMK_TRANSPORT_USB) {
         schedule_usb_mouse_report_fallback();
     }
 }
 
-INPUT_CALLBACK_DEFINE(NULL, usb_mouse_report_fallback_listener);
+INPUT_CALLBACK_DEFINE(NULL, usb_mouse_report_fallback_listener, NULL);
 #endif
 
 static int prefer_usb_endpoint_init(void) {
