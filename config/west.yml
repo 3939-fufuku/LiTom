@@ -54,6 +54,6 @@ manifest:
     - name: zmk-feature-device-info
     - name: zmk-tom-oled
       remote: pukuhei
-      revision: main
+      revision: agent/zmk-v0.4-oled-fixes
   self:
     path: config
