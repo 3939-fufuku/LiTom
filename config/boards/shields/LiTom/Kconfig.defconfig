@@ -20,7 +20,7 @@ if SHIELD_LITOM_R
 
     if LVGL
         config LV_Z_VDB_SIZE
-            default 64
+            default 100
 
         config LV_DPI_DEF
             default 148
@@ -53,7 +53,7 @@ if SHIELD_LITOM_L
 
     if LVGL
         config LV_Z_VDB_SIZE
-            default 64
+            default 100
 
         config LV_DPI_DEF
             default 148
