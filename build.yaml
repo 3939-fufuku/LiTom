@@ -25,3 +25,11 @@ include:
     shield: LiTom_L tom_oled tom_oled_180
   - board: xiao_ble//zmk
     shield: settings_reset
+  - board: xiao_ble//zmk
+    shield: LiTom_R tom_oled
+    cmake-args: -DCONFIG_ZMK_BLE_CLEAR_BONDS_ON_START=y
+    artifact-name: LiTom_R-bluetooth-reset
+  - board: xiao_ble//zmk
+    shield: LiTom_L tom_oled tom_oled_180
+    cmake-args: -DCONFIG_ZMK_BLE_CLEAR_BONDS_ON_START=y
+    artifact-name: LiTom_L-bluetooth-reset
