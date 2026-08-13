@@ -9,6 +9,13 @@
 #include <behaviors/runtime_macro.dtsi>
 #include <behaviors/runtime-sensor-rotate.dtsi>
 
+&mouse_runtime_input_processor {
+    temp-layer-enabled;
+    temp-layer = <1>;
+    temp-layer-activation-delay-ms = <0>;
+    temp-layer-deactivation-delay-ms = <400>;
+};
+
 #undef ZMK_POINTING_DEFAULT_SCRL_VAL
 #define ZMK_POINTING_DEFAULT_SCRL_VAL 80
 
