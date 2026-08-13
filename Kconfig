@@ -6,33 +6,6 @@ config LITOM_PREFER_USB_ENDPOINT_ON_READY
       endpoint becomes ready. This keeps BLE enabled for split transport while
       making host input prefer USB when a cable is connected.
 
-config LITOM_AUTO_MOUSE_LAYER
-    bool "LiTom trackball auto mouse layer"
-    depends on INPUT
-    help
-      Activate a temporary mouse layer from trackball movement without using
-      the generic temp-layer input processor.
-
-if LITOM_AUTO_MOUSE_LAYER
-
-config LITOM_AUTO_MOUSE_LAYER_TARGET
-    int "Auto mouse layer index"
-    default 1
-
-config LITOM_AUTO_MOUSE_LAYER_SCROLL
-    int "Scroll layer index that pauses auto mouse layer deactivation"
-    default 2
-
-config LITOM_AUTO_MOUSE_LAYER_TIMEOUT_MS
-    int "Auto mouse layer timeout in milliseconds"
-    default 400
-
-module = LITOM_AUTO_MOUSE_LAYER
-module-str = litom_auto_mouse_layer
-source "${ZEPHYR_BASE}/subsys/logging/Kconfig.template.log_config"
-
-endif
-
 menuconfig LITOM_IQS7222D_TEST
     bool "IQS7222D touchpad test input driver"
     depends on I2C && GPIO && INPUT

@@ -1,36 +1,59 @@
 manifest:
+  version: 1.2
+  defaults:
+    remote: cormoran
+    revision: main
   remotes:
     - name: cormoran
       url-base: https://github.com/cormoran
-    - name: badjeff
-      url-base: https://github.com/badjeff
     - name: pukuhei
       url-base: https://github.com/pukuhei
   projects:
+    - name: zmk-west-commands
+      import: true
     - name: zmk
-      remote: cormoran
-      revision: v0.3-branch+dya
-      import: app/west.yml
+      revision: main+dya
+      clone-depth: 1
+      import:
+        file: app/west.yml
+    - name: zephyr
+      revision: v4.1.0+zmk-fixes+nrf-half-duplex-uart
+      clone-depth: 1
+      import:
+        name-blocklist:
+          - ci-tools
+          - hal_altera
+          - hal_cypress
+          - hal_infineon
+          - hal_microchip
+          - hal_nxp
+          - hal_openisa
+          - hal_xtensa
+          - hal_st
+          - hal_ti
+          - loramac-node
+          - mcuboot
+          - mcumgr
+          - net-tools
+          - openthread
+          - edtt
+          - trusted-firmware-m
+    - name: zmk-driver-pmw3610-with-custom-studio-rpc
     - name: zmk-module-ble-management
-      remote: cormoran
-      revision: zmk-v0.3.0.0
     - name: zmk-module-battery-history
-      remote: cormoran
-      revision: 307755dd2ad4d320e14de162e8e5ef018f29d929
     - name: zmk-module-settings-rpc
-      remote: cormoran
-      revision: zmk-v0.3.0.0
     - name: zmk-module-runtime-input-processor
-      remote: cormoran
-      revision: zmk-v0.3.0.0
     - name: zmk-behavior-runtime-sensor-rotate
-      remote: cormoran
-      revision: zmk-v0.3.0.0
-    - name: zmk-pmw3610-driver
-      remote: badjeff
-      revision: zmk-0.3
+    - name: zmk-feature-input-stream
+    - name: zmk-feature-module-physical-layout
+    - name: zmk-feature-custom-settings
+    - name: zmk-feature-runtime-combo
+    - name: zmk-feature-runtime-macro
+    - name: zmk-feature-fast-keymap
+    - name: zmk-feature-watchdog
+    - name: zmk-feature-device-info
     - name: zmk-tom-oled
       remote: pukuhei
-      revision: main
+      revision: 6fc5e067de2430ceda87c065526e2a1ba2187bfc
   self:
     path: config
